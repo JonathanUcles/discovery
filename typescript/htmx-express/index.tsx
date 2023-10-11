@@ -3,17 +3,16 @@ import dotenv from 'dotenv'
 import path from 'path';
 import BaseApp from './src/BaseApp'
 import * as elements from 'typed-html'
+import { homeRouter } from './routes/home'
 dotenv.config()
 
 const app:Express = express();
 const port  = process.env.PORT;
 // Set static folder
 app.use('/static',express.static('public'));
+app.use('/',homeRouter)
 
-app.get('/',(req:Request, res:Response)=>{
-    res.send(
-        <BaseApp><button class='border p-2 text-4xl' hx-post='/clicked' hx-swap='outerHTML'> click</button></BaseApp>);
-})
+
 app.post('/clicked',(req:Request, res:Response)=>{
     res.send(<h1>Response from server</h1>)
 
